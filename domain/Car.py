@@ -1,5 +1,6 @@
 class Car:
-    def __init__(self,brand, model, fuel, color, cm3, hp, body_type):
+    def __init__(self,id ,brand, model, fuel, color, cm3, hp, body_type):
+        self.__id = id
         self.__brand = brand
         self.__model = model
         self.__fuel = fuel
@@ -7,6 +8,9 @@ class Car:
         self.__cm3 = cm3
         self.__hp = hp
         self.__body_type = body_type
+
+    def get_id(self):
+        return self.__id
 
     def get_brand(self):
         return self.__brand
@@ -28,6 +32,9 @@ class Car:
 
     def get_body_type(self):
         return self.__body_type
+
+    def set_id(self, new_id):
+        self.__id = new_id
 
     def set_brand(self,brand):
         self.__brand = brand
@@ -51,7 +58,7 @@ class Car:
         self.__body_type = body_type
 
     def __str__(self):
-        return (f"{self.__brand}, {self.__model}, {self.__fuel},"
+        return (f"{self.__id},{self.__brand}, {self.__model}, {self.__fuel},"
                 f" {self.__color}, {self.__cm3}, {self.__hp}, {self.__body_type}")
 
     def __eq__(self,other):

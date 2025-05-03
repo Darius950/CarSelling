@@ -2,30 +2,35 @@ from service.CarService import CarService
 
 
 class UserInterface:
-    def __init__(self, srv:CarService):
+    def __init__(self, srv: CarService):
         self.__srv = srv
 
     def run(self):
         while True:
             self.print_menu()
-            optiune=input("Dati optiunea: ")
-            if optiune=="1":
+            optiune = input("Dati optiunea: ")
+            if optiune == "1":
                 self.ui_add_car()
-            elif optiune=="2":
+            elif optiune == "2":
                 self.show_all()
-            elif optiune=="x" or optiune=="X":
+            elif optiune == "3":
+                self.ui_del_car()
+            elif optiune == "x" or optiune == "X":
                 break
             else:
                 print("Optiune gresita.")
-
 
     def print_menu(self):
         print("Welcome to Car System")
         print("1. Add car")
         print("2. View cars")
+        print("3. Delete car")
         print("x. Exit")
 
     def ui_add_car(self):
+        id = 1
+        while self.__srv.exist_by_id(id):
+            id += 1
         brand = input("Dati brand: ")
         model = input("Dati model: ")
         fuel = input("Dati fuel: ")
@@ -33,7 +38,7 @@ class UserInterface:
         cm3 = int(input("Dati cm3: "))
         hp = int(input("Dati hp: "))
         body_type = input("Dati body_type: ")
-        self.__srv.add(brand, model, fuel, color, cm3, hp, body_type)
+        self.__srv.add(id, brand, model, fuel, color, cm3, hp, body_type)
         print("Masina a fost adaugata cu succes.")
 
     def show_all(self):
@@ -41,8 +46,14 @@ class UserInterface:
         for i in range (self.__srv.get_size()):
             print(self.__srv.get_all()[i])
         '''
-        if  self.__srv.get_size() == 0:
+        if self.__srv.get_size() == 0:
             print("No cars added.\n")
             return
         for elem in self.__srv.get_all():
             print(elem)
+
+    def ui_del_car(self):
+        self.show_all()
+        id = int(input("Dati id-ul masinii de sters: "))
+        self.__srv.remove(id)
+        print("Masinia a fost stearsa cu succes!")
