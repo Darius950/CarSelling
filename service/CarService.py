@@ -1,12 +1,12 @@
 from domain.Car import Car
-from repo.Repository import Repository
+from repo.RepositoryCar import RepositoryCar
 
 
 class CarService:
-    def __init__(self, repo:Repository):
+    def __init__(self, repo:RepositoryCar):
         self.__repo = repo
 
-    def add(self,id:int, brand:str, model:str, fuel:str,
+    def add(self, id:int, brand:str, model:str, fuel:str,
             color:str, cm3:int, hp:int, body_type:str):
         car = Car(id, brand, model, fuel, color, cm3, hp, body_type)
         self.__repo.add(car)
@@ -24,6 +24,7 @@ class CarService:
                 if elem.get_id() == id:
                     return elem
         print("Masina nu exista.")
+
     def exist_by_id(self, id):
         for elem in self.get_all():
             if elem.get_id() == id:
